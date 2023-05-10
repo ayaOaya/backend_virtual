@@ -31,7 +31,8 @@ app.use('/', express.static(path.join(__dirname, 'public'))) //express.static is
 
 
 app.use('/', require('./routes/root.js'))
-app.use('/users', require('./routes/userRoutes'))
+app.use('/users', require('./routes/userRoutes')) 
+app.use('/notes', require('./routes/noteRoutes'))
 
 // handelling 404 page  
 app.all('*', (req, res) => {

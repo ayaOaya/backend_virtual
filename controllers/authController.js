@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt') // used it before to decrypt the pwds && now were using it to encrypt the pwds[so we can read them]
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 
@@ -13,6 +13,7 @@ const login = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
+    // looking for the user collection in mongo db   
     const foundUser = await User.findOne({ username }).exec()
 
     if (!foundUser || !foundUser.active) {
@@ -56,7 +57,7 @@ const login = asyncHandler(async (req, res) => {
 // @route GET /auth/refresh
 // @access Public - because access token has expired
 const refresh = (req, res) => {
-    const cookies = req.cookies
+    const cookies = req.cookies // here we are expecting a cookie with a req
 
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
 
